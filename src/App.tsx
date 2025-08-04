@@ -5,6 +5,7 @@ import LoginPage from "@/pages/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
 import PaymentPage from "@/pages/PaymentPage";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import AdminDashboardPage from "@/pages/AdminDashboardPage.tsx";
 
 function App() {
   return (
@@ -25,6 +26,19 @@ function App() {
                 </SignedOut>
               </>
             }
+          />
+          <Route
+              path="/admin"
+              element={
+              <>
+                <SignedIn>
+                  <AdminDashboardPage/>
+                </SignedIn>
+                <SignedOut>
+                  <LoginPage />
+                </SignedOut>
+              </>
+              }
           />
           <Route
             path="/payment/:sessionId"
