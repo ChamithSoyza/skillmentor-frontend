@@ -5,6 +5,7 @@ import {useAuth} from "@clerk/clerk-react";
 import {Button} from "@/components/ui/button.tsx";
 import {Row, Col, Tabs, Tab} from "react-bootstrap";
 import StudentManagement from "@/pages/StudentManagement.tsx";
+import MentorManagement from "@/pages/MentorManagement.tsx";
 
 
 const AdminDashboardPage = () => {
@@ -46,10 +47,10 @@ const AdminDashboardPage = () => {
         <>
             {/* --Tab Section-- */}
             <Row>
-                <Col md={9} style={{paddingLeft: "15px !important"}}>
+                <Col md={12} className="p-5">
                     <div className="tab-section">
                         <Tabs
-                            defaultActiveKey="student"
+                            defaultActiveKey="mentor"
                             id="tab_view"
                             className="mb-3"
                             justify
@@ -57,6 +58,12 @@ const AdminDashboardPage = () => {
                             }}
                             variant="tabs"
                         >
+                            <Tab eventKey="mentor"
+                                 title={<span style={{color: '#26d700'}}>Mentor management</span>}>
+                                <Col lg={12} sm={12} className="d-flex  gap-1">
+                                    <MentorManagement/>
+                                </Col>
+                            </Tab>
                             <Tab eventKey="student"
                                  title={<span style={{color: '#158fff'}}>Student management</span>}>
                                 <Col lg={12} sm={12} className="d-flex  gap-1">
@@ -65,12 +72,6 @@ const AdminDashboardPage = () => {
                             </Tab>
                             <Tab eventKey="class"
                                  title={<span style={{color: '#fcad00'}}>ClassRoom Management</span>}>
-                                <Col lg={12} sm={12} className="d-flex  gap-1">
-
-                                </Col>
-                            </Tab>
-                            <Tab eventKey="mentor"
-                                 title={<span style={{color: '#26d700'}}>Mentor management</span>}>
                                 <Col lg={12} sm={12} className="d-flex  gap-1">
 
                                 </Col>
