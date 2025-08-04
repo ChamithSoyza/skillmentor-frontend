@@ -3,103 +3,89 @@ import {useEffect, useState} from "react";
 import {BACKEND_URL} from "@/config/env.ts";
 import {useAuth} from "@clerk/clerk-react";
 import {Button} from "@/components/ui/button.tsx";
+import {Row, Col, Tabs, Tab} from "react-bootstrap";
+import StudentManagement from "@/pages/StudentManagement.tsx";
 
 
 const AdminDashboardPage = () => {
-    const {getToken} = useAuth();
-    const [classRoomData, setClassRoomData] = useState([]);
-    const [studentData, setStudentData] = useState([]);
+    // const {getToken} = useAuth();
+    // const [classRoomData, setClassRoomData] = useState([]);
 
 
     // FETCH call for get all classes
-    const getAllClassRoomData = async () => {
-        const token = await getToken({template: "skillmentor-auth-frontend"});
-        if (!token) return;
+    // const getAllClassRoomData = async () => {
+    //     const token = await getToken({template: "skillmentor-auth-frontend"});
+    //     if (!token) return;
+    //
+    //     const requested = {
+    //         method: "GET",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: `Bearer ${token}`,
+    //         },
+    //         redirect: "follow"
+    //     };
+    //
+    //     try {
+    //         const response = await fetch(`${BACKEND_URL}/academic/classroom`, requested);
+    //         const data = await response.json();
+    //         setClassRoomData(data);
+    //     } catch (error) {
+    //         console.error("Error fetching classroom data!", error);
+    //     }
+    // }
 
-        const requested = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            redirect: "follow"
-        };
 
-        try {
-            const response = await fetch(`${BACKEND_URL}/academic/classroom`, requested);
-            const data = await response.json();
-            setClassRoomData(data);
-        } catch (error) {
-            console.error("Error fetching classroom data!", error);
-        }
-    }
-
-    // FETCH call for get all classes
-    const getStudents = async () => {
-        const token = await getToken({template: "skillmentor-auth-frontend"});
-        if (!token) return;
-
-        const requested = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            redirect: "follow"
-        };
-
-        try {
-            const response = await fetch(`${BACKEND_URL}/academic/student`,requested);
-            const data = await response.json();
-            setStudentData(data);
-        } catch (error) {
-            console.error("Error fetching classroom data!", error);
-        }
-    }
-
-    useEffect(() => {
-        getAllClassRoomData();
-        getStudents();
-    }, []);
+    // useEffect(() => {
+    //     getAllClassRoomData();
+    //     getStudents();
+    // }, []);
 
 
     return (
         <>
-            <div className="p-2 border border-gray-200 ">
-                <h4>Student Data</h4>
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {studentData && studentData.map((student, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{student.first_name}</td>
-                                <td>{student.last_name}</td>
-                            </tr>
-                        )
-                    })}
+            {/* --Tab Section-- */}
+            <Row>
+                <Col md={9} style={{paddingLeft: "15px !important"}}>
+                    <div className="tab-section">
+                        <Tabs
+                            defaultActiveKey="student"
+                            id="tab_view"
+                            className="mb-3"
+                            justify
+                            onSelect={() => {
+                            }}
+                            variant="tabs"
+                        >
+                            <Tab eventKey="student"
+                                 title={<span style={{color: '#158fff'}}>Student management</span>}>
+                                <Col lg={12} sm={12} className="d-flex  gap-1">
+                                    <StudentManagement/>
+                                </Col>
+                            </Tab>
+                            <Tab eventKey="class"
+                                 title={<span style={{color: '#fcad00'}}>ClassRoom Management</span>}>
+                                <Col lg={12} sm={12} className="d-flex  gap-1">
 
-                    </tbody>
-                </table>
+                                </Col>
+                            </Tab>
+                            <Tab eventKey="mentor"
+                                 title={<span style={{color: '#26d700'}}>Mentor management</span>}>
+                                <Col lg={12} sm={12} className="d-flex  gap-1">
 
-                <div className="data-form">
-                    <form>
-                        <input
-                            placeholder="Enter Class Name"
-                            name="name"
-                            value=""/>
-                        <input
-                            placeholder="Enter Class Image"
-                            name="name"
-                            value=""/>
-                    </form>
-                </div>
-            </div>
+                                </Col>
+                            </Tab>
+                            <Tab eventKey="session"
+                                 title={<span style={{color: '#26d700'}}>Sessions management</span>}>
+                                <Col lg={12} sm={12} className="d-flex  gap-1">
+
+                                </Col>
+                            </Tab>
+                        </Tabs>
+                    </div>
+                </Col>
+            </Row>
+
         </>
     )
 }
