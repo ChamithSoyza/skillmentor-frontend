@@ -94,6 +94,7 @@ export default function DashboardPage() {
     }
   }, [isLoaded, isSignedIn]);
 
+  // ROLE based redirection
   useEffect(() => {
     if(isLoaded && user?.publicMetadata.role === 'ADMIN'){
       router('/admin');
