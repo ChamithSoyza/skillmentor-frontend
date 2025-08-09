@@ -1,7 +1,6 @@
 import {BACKEND_URL} from "@/config/env.ts";
 import {useEffect, useState} from "react";
 import {useAuth} from "@clerk/clerk-react";
-import {Col, Row} from "react-bootstrap";
 import {Button} from "@/components/ui/button.tsx";
 
 
@@ -144,7 +143,7 @@ export default function MentorManagement() {
 
     return (
         <>
-            <Row className="p-3">
+            <div className="p-3">
                 <h4>Student Data</h4>
                 <table className="table table-striped">
                     <thead>
@@ -184,10 +183,10 @@ export default function MentorManagement() {
 
                     </tbody>
                 </table>
-                <Col>
+                <div>
                     <form>
                         <div className="data-form flex">
-                            <Col md={6} className="block">
+                            <div  className="block">
                                 <input
                                     className="p-2 border rounded w-75 mb-3"
                                     placeholder="Enter  ID"
@@ -232,8 +231,8 @@ export default function MentorManagement() {
                                 />
 
 
-                            </Col>
-                            <Col md={6}>
+                            </div>
+                            <div >
                                 <input
                                     className="p-2 border rounded w-75 mb-3"
                                     placeholder="Enter Session Fee"
@@ -284,12 +283,12 @@ export default function MentorManagement() {
                                         </option>
                                     ))}
                                 </select>
-                            </Col>
+                            </div>
                         </div>
                         <Button type="submit" onClick={handleSubmit}>Save</Button>
                     </form>
-                </Col>
-            </Row>
+                </div>
+            </div>
 
 
         </>

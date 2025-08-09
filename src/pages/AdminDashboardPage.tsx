@@ -1,9 +1,4 @@
-import {Form} from "react-router";
-import {useEffect, useState} from "react";
-import {BACKEND_URL} from "@/config/env.ts";
-import {useAuth} from "@clerk/clerk-react";
-import {Button} from "@/components/ui/button.tsx";
-import {Row, Col, Tabs, Tab} from "react-bootstrap";
+
 import StudentManagement from "@/pages/StudentManagement.tsx";
 import MentorManagement from "@/pages/MentorManagement.tsx";
 
@@ -46,46 +41,46 @@ const AdminDashboardPage = () => {
     return (
         <>
             {/* --Tab Section-- */}
-            <Row>
-                <Col md={12} className="p-5">
-                    <div className="tab-section">
-                        <Tabs
-                            defaultActiveKey="mentor"
-                            id="tab_view"
-                            className="mb-3"
-                            justify
-                            onSelect={() => {
-                            }}
-                            variant="tabs"
-                        >
-                            <Tab eventKey="mentor"
-                                 title={<span style={{color: '#26d700'}}>Mentor management</span>}>
-                                <Col lg={12} sm={12} className="d-flex  gap-1">
-                                    <MentorManagement/>
-                                </Col>
-                            </Tab>
-                            <Tab eventKey="student"
-                                 title={<span style={{color: '#158fff'}}>Student management</span>}>
-                                <Col lg={12} sm={12} className="d-flex  gap-1">
-                                    <StudentManagement/>
-                                </Col>
-                            </Tab>
-                            <Tab eventKey="class"
-                                 title={<span style={{color: '#fcad00'}}>ClassRoom Management</span>}>
-                                <Col lg={12} sm={12} className="d-flex  gap-1">
+            {/*<Row>*/}
+            {/*    <Col md={12} className="p-5">*/}
+            {/*        <div className="tab-section">*/}
+            {/*            <Tabs*/}
+            {/*                defaultActiveKey="mentor"*/}
+            {/*                id="tab_view"*/}
+            {/*                className="mb-3"*/}
+            {/*                justify*/}
+            {/*                onSelect={() => {*/}
+            {/*                }}*/}
+            {/*                variant="tabs"*/}
+            {/*            >*/}
+            {/*                <Tab eventKey="mentor"*/}
+            {/*                     title={<span style={{color: '#26d700'}}>Mentor management</span>}>*/}
+            {/*                    <Col lg={12} sm={12} className="d-flex  gap-1">*/}
+            {/*                        <MentorManagement/>*/}
+            {/*                    </Col>*/}
+            {/*                </Tab>*/}
+            {/*                <Tab eventKey="student"*/}
+            {/*                     title={<span style={{color: '#158fff'}}>Student management</span>}>*/}
+            {/*                    <Col lg={12} sm={12} className="d-flex  gap-1">*/}
+            {/*                        <StudentManagement/>*/}
+            {/*                    </Col>*/}
+            {/*                </Tab>*/}
+            {/*                <Tab eventKey="class"*/}
+            {/*                     title={<span style={{color: '#fcad00'}}>ClassRoom Management</span>}>*/}
+            {/*                    <Col lg={12} sm={12} className="d-flex  gap-1">*/}
 
-                                </Col>
-                            </Tab>
-                            <Tab eventKey="session"
-                                 title={<span style={{color: '#26d700'}}>Sessions management</span>}>
-                                <Col lg={12} sm={12} className="d-flex  gap-1">
+            {/*                    </Col>*/}
+            {/*                </Tab>*/}
+            {/*                <Tab eventKey="session"*/}
+            {/*                     title={<span style={{color: '#26d700'}}>Sessions management</span>}>*/}
+            {/*                    <Col lg={12} sm={12} className="d-flex  gap-1">*/}
 
-                                </Col>
-                            </Tab>
-                        </Tabs>
-                    </div>
-                </Col>
-            </Row>
+            {/*                    </Col>*/}
+            {/*                </Tab>*/}
+            {/*            </Tabs>*/}
+            {/*        </div>*/}
+            {/*    </Col>*/}
+            {/*</Row>*/}
 
         </>
     )
