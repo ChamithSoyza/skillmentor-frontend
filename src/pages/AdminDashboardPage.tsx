@@ -1,6 +1,7 @@
 
 import StudentManagement from "@/pages/StudentManagement.tsx";
 import MentorManagement from "@/pages/MentorManagement.tsx";
+import AdminLayout from "@/components/AdminLayout.tsx";
 
 
 const AdminDashboardPage = () => {
@@ -40,6 +41,8 @@ const AdminDashboardPage = () => {
 
     return (
         <>
+            <AdminLayout/>
+
             {/* --Tab Section-- */}
             {/*<Row>*/}
             {/*    <Col md={12} className="p-5">*/}
