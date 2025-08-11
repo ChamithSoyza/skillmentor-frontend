@@ -1,8 +1,8 @@
-import * as React from "react";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar.tsx";
 import {AppSidebar} from "@/components/app-sidebar.tsx";
+import {Outlet} from "react-router";
 
-export default function AdminLayout({children}: { children: React.ReactNode }) {
+export default function AdminLayout() {
 
     return (
         <>
@@ -10,7 +10,7 @@ export default function AdminLayout({children}: { children: React.ReactNode }) {
                 <AppSidebar/>
                 <main>
                     <SidebarTrigger/>
-                    {children}
+                    <Outlet/>
                 </main>
             </SidebarProvider>
         </>
