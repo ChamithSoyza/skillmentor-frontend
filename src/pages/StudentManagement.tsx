@@ -101,11 +101,11 @@ const StudentManagement = () => {
 
     return (
         <>
-            <div className="p-3">
-                <h4>Student Data</h4>
-                <table className="table table-striped">
-                    <thead>
-                    <tr>
+            <div className=" flex-col p-4">
+                <h4 className="flex text-center">Student Data</h4>
+                <table className="table table-auto">
+                    <thead className="bg-gray-900 text-white">
+                    <tr className="p-2">
                         <th>Student ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -115,7 +115,7 @@ const StudentManagement = () => {
                         <th>Age</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="border-2">
                     {studentData && studentData.map((student, index) => {
                         return (
                             <tr key={index}>
@@ -132,9 +132,10 @@ const StudentManagement = () => {
 
                     </tbody>
                 </table>
-                <div>
+
+                <div className="mt-4">
                     <form>
-                        <div className="data-form flex">
+                        <div className="flex justify-center">
                             <div className="block">
                                 <input
                                     className="p-2 border rounded w-75 mb-3"
@@ -142,13 +143,14 @@ const StudentManagement = () => {
                                     name="studentId"
                                     value={formData.studentId}
                                     onChange={handleInputChange}
-                                /><input
-                                className="p-2 border rounded w-75 mb-3"
-                                placeholder="Enter Student First Name"
-                                name="firstName"
-                                value={formData.firstName}
-                                onChange={handleInputChange}
-                            />
+                                />
+                                <input
+                                    className="p-2 border rounded w-75 mb-3"
+                                    placeholder="Enter Student First Name"
+                                    name="firstName"
+                                    value={formData.firstName}
+                                    onChange={handleInputChange}
+                                />
                                 <input
                                     className="p-2 border rounded w-75 mb-3"
                                     placeholder="Enter Student last Name"
@@ -163,9 +165,8 @@ const StudentManagement = () => {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                 />
-
                             </div>
-                            <div>
+                            <div className="flex-col">
                                 <input
                                     className="p-2 border rounded w-75 mb-3"
                                     placeholder="Enter Student Mobile Number"
