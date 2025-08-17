@@ -101,101 +101,96 @@ const StudentManagement = () => {
 
     return (
         <>
-            <div className=" flex-col p-4">
-                <h4 className="flex text-center">Student Data</h4>
-                <table className="table table-auto">
-                    <thead className="bg-gray-900 text-white">
-                    <tr className="p-2">
-                        <th>Student ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Address</th>
-                        <th>Age</th>
+            <div className="max-w-7xl mx-auto p-6">
+                <h4 className="flex text-center">Student Management</h4>
+                <table className="min-w-full border-collapse border border-gray-200">
+                    <thead className="bg-gray-800 text-white">
+                    <tr>
+                        <th className="px-4 py-2 text-left">Student ID</th>
+                        <th className="px-4 py-2 text-left">First Name</th>
+                        <th className="px-4 py-2 text-left">Last Name</th>
+                        <th className="px-4 py-2 text-left">Email</th>
+                        <th className="px-4 py-2 text-left">Phone Number</th>
+                        <th className="px-4 py-2 text-left">Address</th>
+                        <th className="px-4 py-2 text-left">Age</th>
                     </tr>
                     </thead>
-                    <tbody className="border-2">
-                    {studentData && studentData.map((student, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{student.student_id}</td>
-                                <td>{student.first_name}</td>
-                                <td>{student.last_name}</td>
-                                <td>{student.email}</td>
-                                <td>{student.phone_number}</td>
-                                <td>{student.address}</td>
-                                <td>{student.age}</td>
-                            </tr>
-                        )
-                    })}
-
+                    <tbody>
+                    {studentData && studentData.map((student, index) => (
+                        <tr
+                            key={index}
+                            className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100 transition-colors duration-150`}
+                        >
+                            <td className="px-4 py-2">{student.student_id}</td>
+                            <td className="px-4 py-2">{student.first_name}</td>
+                            <td className="px-4 py-2">{student.last_name}</td>
+                            <td className="px-4 py-2">{student.email}</td>
+                            <td className="px-4 py-2">{student.phone_number}</td>
+                            <td className="px-4 py-2">{student.address}</td>
+                            <td className="px-4 py-2">{student.age}</td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
 
-                <div className="mt-4">
-                    <form>
-                        <div className="flex justify-center">
-                            <div className="block">
-                                <input
-                                    className="p-2 border rounded w-75 mb-3"
-                                    placeholder="Enter Student Student ID"
-                                    name="studentId"
-                                    value={formData.studentId}
-                                    onChange={handleInputChange}
-                                />
-                                <input
-                                    className="p-2 border rounded w-75 mb-3"
-                                    placeholder="Enter Student First Name"
-                                    name="firstName"
-                                    value={formData.firstName}
-                                    onChange={handleInputChange}
-                                />
-                                <input
-                                    className="p-2 border rounded w-75 mb-3"
-                                    placeholder="Enter Student last Name"
-                                    name="lastName"
-                                    value={formData.lastName}
-                                    onChange={handleInputChange}
-                                />
-                                <input
-                                    className="p-2 border rounded w-75 mb-3"
-                                    placeholder="Enter Student Email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="flex-col">
-                                <input
-                                    className="p-2 border rounded w-75 mb-3"
-                                    placeholder="Enter Student Mobile Number"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleInputChange}
-                                />
-                                <input
-                                    className="p-2 border rounded w-75 mb-3"
-                                    placeholder="Enter Student Address"
-                                    name="address"
-                                    value={formData.address}
-                                    onChange={handleInputChange}
-                                />
-                                <input
-                                    className="p-2 border rounded w-75 mb-3"
-                                    placeholder="Enter Student Age"
-                                    name="age"
-                                    value={formData.age}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
+                <div className="mt-6 p-6 bg-white rounded-lg shadow-md">
+                    <h4 className="text-xl font-semibold mb-4 text-center">Add New Student</h4>
+                    <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input
+                            className="p-3 border border-gray-300 rounded w-full"
+                            placeholder="Enter Student ID"
+                            name="studentId"
+                            value={formData.studentId}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            className="p-3 border border-gray-300 rounded w-full"
+                            placeholder="Enter First Name"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            className="p-3 border border-gray-300 rounded w-full"
+                            placeholder="Enter last Name"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            className="p-3 border border-gray-300 rounded w-full"
+                            placeholder="Enter Email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            className="p-3 border border-gray-300 rounded w-full"
+                            placeholder="Enter Mobile Number"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            className="p-3 border border-gray-300 rounded w-full"
+                            placeholder="Enter Address"
+                            name="address"
+                            value={formData.address}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            className="p-3 border border-gray-300 rounded w-full"
+                            placeholder="Enter Age"
+                            name="age"
+                            value={formData.age}
+                            onChange={handleInputChange}
+                        />
+                        <div className="col-span-full flex justify-center">
+                            <Button className="rounded" type="submit" onClick={handleSubmit}>Save</Button>
                         </div>
-                        <Button type="submit" onClick={handleSubmit}>Save</Button>
                     </form>
                 </div>
             </div>
-
-
         </>
     )
 }
