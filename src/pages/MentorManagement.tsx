@@ -21,7 +21,8 @@ export default function MentorManagement() {
         subject: "",
         phone: "",
         qualification: "",
-        imageUrl: ""
+        imageUrl: "",
+        classRoomId: "",
     });
 
     // FETCH call for get all mentors
@@ -102,7 +103,7 @@ export default function MentorManagement() {
             phone_number: formData.phone,
             qualification: formData.qualification,
             mentor_image: formData.imageUrl,
-            class_room_id: 1
+            class_room_id: formData.classRoomId
         }
         try {
             const createdUser = await fetch(`${BACKEND_URL}/academic/mentor`, {
@@ -137,7 +138,8 @@ export default function MentorManagement() {
             subject: "",
             phone: "",
             qualification: "",
-            imageUrl: ""
+            imageUrl: "",
+            classRoomId: ""
         })
     }
 
@@ -271,10 +273,15 @@ export default function MentorManagement() {
                             value={formData.imageUrl}
                             onChange={handleInputChange}
                         />
-                        <select className="p-3 border border-gray-300 rounded w-full">
-                            <option value="">Select a class</option>
+                        <select
+                            className="p-3 border border-gray-300 rounded w-full"
+                            name="classRoomId"
+                            value={formData.classRoomId}
+                            onChange={handleInputChange}
+                        >
+                            <option>Select a class</option>
                             {classroomData && classroomData.map((classroom, index) => (
-                                <option key={index} value={classroom.id}>
+                                <option key={index} value={classroom.class_room_id}>
                                     {classroom.title}
                                 </option>
                             ))}
