@@ -20,9 +20,9 @@ const items = [
         icon: Home,
     },
     {
-        title: "Student Management",
-        url: "/admin/students",
-        icon: Inbox,
+        title: "ClassRoom Management",
+        url: "/admin/classrooms",
+        icon: Search,
     },
     {
         title: "Mentor Management",
@@ -30,14 +30,14 @@ const items = [
         icon: Calendar,
     },
     {
-        title: "ClassRoom Management",
-        url: "/admin/classrooms",
-        icon: Search,
-    },
-    {
         title: "Session Management",
         url: "/admin/sessions",
         icon: Settings,
+    },
+    {
+        title: "Student Management",
+        url: "/admin/students",
+        icon: Inbox,
     },
 ]
 
