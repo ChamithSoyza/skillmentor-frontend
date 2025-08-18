@@ -8,7 +8,7 @@ export default function AdminLayout() {
         <>
             <SidebarProvider>
                 <AppSidebar/>
-                <main>
+                <main className="flex flex-1 justify-center align-middle">
                     <SidebarTrigger/>
                     <Outlet/>
                 </main>

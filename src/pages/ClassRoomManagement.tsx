@@ -39,11 +39,49 @@ const ClassRoomManagement = () => {
         getClassRoomData();
     }, []);
 
+    // handle input change
+    const handleInputChange = (e) => {
+        const {name, value} = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    }
+
+    // handle submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const token = await getToken({template: "skillmentor-auth-frontend"});
+        if (!token) return;
+        const requestedData = {
+            // class_room_id: "",
+            title: formData.classImg,
+            // enrolled_student_count: "",
+            class_image: formData.classImg,
+            // mentor: ""
+        }
+        try {
+            const createdClass = await fetch(`${BACKEND_URL}/academic/classroom`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(requestedData),
+            });
+
+            const craetedClass = await createdClass.json();
+            console.log(craetedClass);
+        } catch (error) {
+            console.error("Error creating classroom", error);
+        }
+    }
+
 
     return (
         <>
             <div className="max-w-7xl mx-auto p-6">
-                <h4 className="flex text-center">Class Management</h4>
+                <h4 className="text-center text-2xl font-bold">Class Management</h4>
                 <table className="min-w-full border-collapse border border-gray-200">
                     <thead className="bg-gray-800 text-white">
                     <tr>
@@ -69,21 +107,17 @@ const ClassRoomManagement = () => {
                             placeholder="Enter Class Name"
                             name="className"
                             value={formData.className}
-                            onChange={() => {
-                            }}
+                            onChange={handleInputChange}
                         />
                         <input
                             className="p-3 border border-gray-300 rounded w-full"
-                            type="file"
-                            placeholder="Enter Image"
+                            placeholder="Image URL "
                             name="classImg"
                             value={formData.classImg}
-                            onChange={() => {
-                            }}
+                            onChange={handleInputChange}
                         />
                         <div>
-                            <Button className="rounded" type="submit" onClick={() => {
-                            }}>Save</Button>
+                            <Button className="rounded" type="submit" onClick={handleSubmit}>Save</Button>
                         </div>
                     </form>
                 </div>
