@@ -1,14 +1,43 @@
 import {Button} from "@/components/ui/button.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useAuth} from "@clerk/clerk-react";
+import {BACKEND_URL} from "@/config/env.ts";
 
 
 const ClassRoomManagement = () => {
     const [formData, setFormData] = useState({
-        className:"",
-        classImg:""
+        className: "",
+        classImg: ""
     });
+    const {getToken} = useAuth();
     const [classRoomData, setClassRoomData] = useState(null);
 
+    // FETCH for get all classes
+    const getClassRoomData = async () => {
+        const token = await getToken({template: "skillmentor-auth-frontend"});
+        if (!token) return;
+
+        const requested = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            redirect: "follow"
+        };
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/academic/classroom`, requested);
+            const data = await response.json();
+            setClassRoomData(data);
+        } catch (error) {
+            console.error("Error fetching classroom data!", error);
+        }
+    }
+
+    useEffect(() => {
+        getClassRoomData();
+    }, []);
 
 
     return (
@@ -17,16 +46,18 @@ const ClassRoomManagement = () => {
                 <h4 className="flex text-center">Class Management</h4>
                 <table className="min-w-full border-collapse border border-gray-200">
                     <thead className="bg-gray-800 text-white">
-                        <tr>
-                            <th className="px-4 py-2 text-left">Class Name</th>
-                            <th className="px-4 py-2 text-left">Image</th>
-                        </tr>
+                    <tr>
+                        <th className="px-4 py-2 text-left">Class Name</th>
+                        <th className="px-4 py-2 text-left">Image</th>
+                    </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td className="px-4 py-2 ">Name</td>
-                        <td className="px-4 py-2 ">Img URL</td>
-                    </tr>
+                    {classRoomData && classRoomData.map((classRoom, index) => (
+                        <tr key={index}>
+                            <td className="px-4 py-2 ">{classRoom.title}</td>
+                            <td className="px-4 py-2 "><img className="w-6" src={classRoom.class_image}/></td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
 
@@ -38,7 +69,8 @@ const ClassRoomManagement = () => {
                             placeholder="Enter Class Name"
                             name="className"
                             value={formData.className}
-                            onChange={()=>{}}
+                            onChange={() => {
+                            }}
                         />
                         <input
                             className="p-3 border border-gray-300 rounded w-full"
@@ -46,10 +78,12 @@ const ClassRoomManagement = () => {
                             placeholder="Enter Image"
                             name="classImg"
                             value={formData.classImg}
-                            onChange={()=>{}}
+                            onChange={() => {
+                            }}
                         />
                         <div>
-                            <Button className="rounded" type="submit" onClick={()=>{}}>Save</Button>
+                            <Button className="rounded" type="submit" onClick={() => {
+                            }}>Save</Button>
                         </div>
                     </form>
                 </div>
