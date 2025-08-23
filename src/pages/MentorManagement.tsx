@@ -25,7 +25,7 @@ export default function MentorManagement() {
         classRoomId: "",
     });
 
-    // FETCH call for get all mentors
+    // FETCH call for get classrooms
     const getClassRoom = async () => {
         const token = await getToken({template: "skillmentor-auth-frontend"});
         if (!token) return;
@@ -165,22 +165,22 @@ export default function MentorManagement() {
                     </tr>
                     </thead>
                     <tbody>
-                    {mentorData && mentorData.map((student, index) =>
+                    {mentorData && mentorData.map((mentor, index) =>
                         (
                             <tr key={index}
                                 className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100 transition-color duration-150`}
                             >
-                                <td className="px-4 py-2">{student.clerk_mentor_id}</td>
-                                <td className="px-4 py-2">{student.first_name}</td>
-                                <td className="px-4 py-2">{student.last_name}</td>
-                                <td className="px-4 py-2">{student.address}</td>
-                                <td className="px-4 py-2">{student.email}</td>
-                                <td className="px-4 py-2">{student.title}</td>
-                                <td className="px-4 py-2">{student.session_fee}</td>
-                                <td className="px-4 py-2">{student.profession}</td>
-                                <td className="px-4 py-2">{student.subject}</td>
-                                <td className="px-4 py-2">{student.phone_number}</td>
-                                <td className="px-4 py-2">{student.qualification}</td>
+                                <td className="px-4 py-2">{mentor.clerk_mentor_id}</td>
+                                <td className="px-4 py-2">{mentor.first_name}</td>
+                                <td className="px-4 py-2">{mentor.last_name}</td>
+                                <td className="px-4 py-2">{mentor.address}</td>
+                                <td className="px-4 py-2">{mentor.email}</td>
+                                <td className="px-4 py-2">{mentor.title}</td>
+                                <td className="px-4 py-2">{mentor.session_fee}</td>
+                                <td className="px-4 py-2">{mentor.profession}</td>
+                                <td className="px-4 py-2">{mentor.subject}</td>
+                                <td className="px-4 py-2">{mentor.phone_number}</td>
+                                <td className="px-4 py-2">{mentor.qualification}</td>
                             </tr>
                         ))}
                     </tbody>
