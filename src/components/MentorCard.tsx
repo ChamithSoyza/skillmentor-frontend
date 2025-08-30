@@ -15,7 +15,7 @@ export function MentorCard({ mentorClass }: { mentorClass: MentorClass }) {
   const { isSignedIn } = useAuth();
 
   // Use a simple threshold to decide if the bio is long enough
-  const bioTooLong = mentorClass.mentor.subject.length > 200;
+  const bioTooLong = mentorClass?.mentor?.subject.length > 200;
 
   const handleSchedule = () => {
     if (!isSignedIn) {
@@ -40,23 +40,23 @@ export function MentorCard({ mentorClass }: { mentorClass: MentorClass }) {
               </div> */}
               <div className="flex items-center space-x-2">
                 <img
-                  src={mentorClass.mentor.mentor_image}
-                  alt={mentorClass.mentor.first_name}
+                  src={mentorClass?.mentor?.mentor_image}
+                  alt={mentorClass?.mentor?.first_name}
                   className="size-6 object-cover object-top rounded-full"
                 />
                 <span className="text-sm">
-                  {mentorClass.mentor.first_name +
+                  {mentorClass?.mentor?.first_name +
                     " " +
-                    mentorClass.mentor.last_name}
+                    mentorClass?.mentor?.last_name}
                 </span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Building2 className="size-6" />
-                <span>{mentorClass.mentor.profession}</span>
+                <span>{mentorClass?.mentor?.profession}</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Calendar className="size-6" />
-                <span>{mentorClass.mentor.qualification}</span>
+                <span>{mentorClass?.mentor?.qualification}</span>
               </div>
             </div>
             <div className="w-36">
@@ -69,7 +69,7 @@ export function MentorCard({ mentorClass }: { mentorClass: MentorClass }) {
                   />
                 ) : (
                   <span className="text-2xl font-semibold">
-                    {mentorClass.mentor.first_name.charAt(0)}
+                    {mentorClass?.mentor?.first_name.charAt(0)}
                   </span>
                 )}
               </div>
@@ -84,7 +84,7 @@ export function MentorCard({ mentorClass }: { mentorClass: MentorClass }) {
                   !isExpanded && bioTooLong ? "line-clamp-3" : ""
                 )}
               >
-                {mentorClass.mentor.subject}
+                {mentorClass?.mentor?.subject}
               </p>
               {bioTooLong && (
                 <button

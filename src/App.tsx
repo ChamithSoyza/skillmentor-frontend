@@ -10,6 +10,7 @@ import StudentManagement from "@/pages/StudentManagement.tsx";
 import MentorManagement from "@/pages/MentorManagement.tsx";
 import AdminLayout from "@/components/AdminLayout.tsx";
 import ClassRoomManagement from "@/pages/ClassRoomManagement.tsx";
+import SessionManagement from "@/pages/SessionManagement.tsx";
 
 function App() {
   return (
@@ -48,7 +49,7 @@ function App() {
                 <Route path="students" element={<StudentManagement />} />
                 <Route path="mentors" element={<MentorManagement />} />
                 <Route path="classrooms" element={<ClassRoomManagement/>} />
-                {/*<Route path="sessions" element={<SessionManagement />} />*/}
+                <Route path="sessions" element={<SessionManagement />} />
             </Route>
           <Route
             path="/payment/:sessionId"

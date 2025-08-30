@@ -49,8 +49,8 @@ export function SchedulingModal({
       const sessionId = `${mentorClass.class_room_id}-${Date.now()}`;
       const searchParams = new URLSearchParams({
         date: sessionDateTime.toISOString(),
-        mentorId: mentorClass.mentor.mentor_id.toString(),
-        classroomID: mentorClass.class_room_id.toString(),
+        mentorId: mentorClass?.mentor?.mentor_id.toString(),
+        classroomID: mentorClass?.class_room_id.toString(),
         topic: mentorClass.title,
       });
       navigate(`/payment/${sessionId}?${searchParams.toString()}`);
@@ -64,7 +64,7 @@ export function SchedulingModal({
           <DialogTitle>Schedule this session</DialogTitle>
           <DialogDescription className="sr-only">
             Pick a date and time for your mentoring session with{" "}
-            {mentorClass.mentor.first_name}.
+            {mentorClass?.mentor?.first_name}.
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
