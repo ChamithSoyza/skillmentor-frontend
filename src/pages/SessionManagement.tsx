@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react'
 import {Button} from "@/components/ui/button.tsx";
 import {useAuth} from "@clerk/clerk-react";
 import {BACKEND_URL} from "@/config/env.ts";
+import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert.tsx";
 
 const SessionManagement = () => {
     const {getToken} = useAuth();
-    const [sessionData, setSessionData] = useState({});
+    const [sessionData, setSessionData] = useState([]);
 
     // Fetch for session details
     const getSessionDetails = async () => {
@@ -30,9 +31,44 @@ const SessionManagement = () => {
         }
     }
 
+    // Fetch for update status
+    const updateSessionDetails = async (sessionId, status) => {
+        const token = await getToken({template: "skillmentor-auth-frontend"});
+        if (!token) return;
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/academic/session/${sessionId}?sessionStatus=${status}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to update session");
+            }
+
+            const updatedSession = await response.json();
+            alert(`Updated Session Status  ${status}`);
+            console.log("Session updated", updatedSession);
+            getSessionDetails();
+        } catch (error) {
+            console.error("Error Fetching Update Session", error);
+        }
+    }
+
+    // Handle onload functionalities
     useEffect(() => {
         getSessionDetails();
     }, []);
+
+    // Handle session action clicks
+    const handleAction = (sessionId, status) => {
+        updateSessionDetails(sessionId, status);
+    }
 
 
     return (
@@ -52,18 +88,32 @@ const SessionManagement = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td className="px-4 py-2">SEO001</td>
-                        <td className="px-4 py-2">Science</td>
-                        <td className="px-4 py-2">Kamal</td>
-                        <td className="px-4 py-2">Sunimal</td>
-                        <td className="px-4 py-2">Pending</td>
-                        <td className="px-4 py-2">2025/05/08</td>
-                        <td className="flex px-4 py-2 gap-2">
-                            <Button className="button  rounded bg-gray-600 text-white hover:bg-gray-500">Cancel</Button>
-                            <Button className="button rounded hover:bg-amber-500">Approve</Button>
-                        </td>
-                    </tr>
+                    {sessionData && sessionData.map((session, index) => (
+                        <tr key={index}>
+                            <td className="px-4 py-2">{session.session_id}</td>
+                            <td className="px-4 py-2">{session.topic}</td>
+                            <td className="px-4 py-2">{session.mentor.first_name + " " + session.mentor.last_name}</td>
+                            <td className="px-4 py-2">{session.student.first_name + " " + session.student.last_name}</td>
+                            <td className="px-4 py-2" style={session?.session_status === "PENDING" ? {} : {}}>{session.session_status}</td>
+                            <td className="px-4 py-2">{session.start_time}</td>
+                            <td className="flex px-4 py-2 gap-2">
+                                <Button
+                                    className="button  rounded bg-gray-600 text-white hover:bg-gray-500"
+                                    onClick={() => handleAction(session.session_id, "ACCEPTED")}
+                                >
+                                    Accept
+                                </Button>
+                                <Button
+                                    className="button rounded hover:bg-amber-500"
+                                    onClick={() => handleAction(session.session_id, "COMPLETED")}
+                                >
+                                    Complete
+                                </Button>
+                            </td>
+                        </tr>
+                    ))}
+
+
                     </tbody>
                 </table>
             </div>
