@@ -3,32 +3,33 @@ import {useEffect, useState} from "react";
 import {useAuth} from "@clerk/clerk-react";
 import {BACKEND_URL} from "@/config/env.ts";
 
-type Mentor = {
-    mentor_id: number,
-    first_name: string,
-    last_name: string,
-    address: string,
-    email: string,
-    title: string,
-    session_fee: number,
-    profession: string,
-    subject: string,
-    phone_number: string,
-    qualification: string,
-    mentor_image: string,
-    class_room_id: number
-};
+// type Mentor = {
+//     mentor_id: number,
+//     first_name: string,
+//     last_name: string,
+//     address: string,
+//     email: string,
+//     title: string,
+//     session_fee: number,
+//     profession: string,
+//     subject: string,
+//     phone_number: string,
+//     qualification: string,
+//     mentor_image: string,
+//     class_room_id: number
+// };
 
 const ClassRoomManagement = () => {
     const [formData, setFormData] = useState({
         className: "",
         classImg: "",
-        studentCount:"",
-        mentorId:0,
+        studentCount: "",
+        // mentorId:0,
     });
     const {getToken} = useAuth();
     const [classRoomData, setClassRoomData] = useState(null);
-    const [mentorData, setMentorData] = useState<Mentor[]>([]);
+    const [classStateChange, setClassStateChange] = useState(null);
+    // const [mentorData, setMentorData] = useState<Mentor[]>([]);
 
     // FETCH for get all classes
     const getClassRoomData = async () => {
@@ -54,32 +55,32 @@ const ClassRoomManagement = () => {
     }
 
     // FETCH call for get all mentors
-    const getMentors = async () => {
-        const token = await getToken({template: "skillmentor-auth-frontend"});
-        if (!token) return;
-
-        const requested = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            redirect: "follow"
-        };
-
-        try {
-            const response = await fetch(`${BACKEND_URL}/academic/mentor`, requested);
-            const data = await response.json();
-            setMentorData(data);
-        } catch (error) {
-            console.error("Error fetching mentor data!", error);
-        }
-    }
+    // const getMentors = async () => {
+    //     const token = await getToken({template: "skillmentor-auth-frontend"});
+    //     if (!token) return;
+    //
+    //     const requested = {
+    //         method: "GET",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: `Bearer ${token}`,
+    //         },
+    //         redirect: "follow"
+    //     };
+    //
+    //     try {
+    //         const response = await fetch(`${BACKEND_URL}/academic/mentor`, requested);
+    //         const data = await response.json();
+    //         setMentorData(data);
+    //     } catch (error) {
+    //         console.error("Error fetching mentor data!", error);
+    //     }
+    // }
 
     useEffect(() => {
         getClassRoomData();
-        getMentors();
-    }, []);
+        // getMentors();
+    }, [classStateChange]);
 
     // handle input change
     const handleInputChange = (e) => {
@@ -90,19 +91,28 @@ const ClassRoomManagement = () => {
         }));
     }
 
+    // reset Form
+    const resetFrom = () => {
+        setFormData({
+            className: "",
+            classImg: "",
+            studentCount: "",
+        })
+    }
+
     // handle submit
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await getToken({template: "skillmentor-auth-frontend"});
         if (!token) return;
 
-        const menterDTO = mentorData?.find(mentor => mentor.mentor_id === formData.mentorId);
+        // const menterDTO = mentorData?.find(mentor => mentor.mentor_id === formData.mentorId);
 
         const requestedData = {
             title: formData.className,
             enrolled_student_count: formData.studentCount,
             class_image: formData.classImg,
-            mentor: menterDTO
+            mentor: null,
         }
         try {
             const createdClass = await fetch(`${BACKEND_URL}/academic/classroom`, {
@@ -116,6 +126,9 @@ const ClassRoomManagement = () => {
 
             const craetedClass = await createdClass.json();
             console.log(craetedClass);
+            resetFrom();
+            setClassStateChange(createdClass);
+            alert("Class Added Successfully!");
         } catch (error) {
             console.error("Error creating classroom", error);
         }
@@ -167,19 +180,19 @@ const ClassRoomManagement = () => {
                             value={formData.studentCount}
                             onChange={handleInputChange}
                         />
-                        <select
-                            className="p-3 border border-gray-300 rounded w-full"
-                            name="mentorId"
-                            value={formData.mentorId}
-                            onChange={handleInputChange}
-                        >
-                            <option>Select a mentor</option>
-                            {mentorData && mentorData.map((mentor, index) => (
-                                <option key={index} value={mentor.mentor_id}>
-                                    {mentor.first_name} {mentor.last_name}
-                                </option>
-                            ))}
-                        </select>
+                        {/*<select*/}
+                        {/*    className="p-3 border border-gray-300 rounded w-full"*/}
+                        {/*    name="mentorId"*/}
+                        {/*    value={formData.mentorId}*/}
+                        {/*    onChange={handleInputChange}*/}
+                        {/*>*/}
+                        {/*    <option>Select a mentor</option>*/}
+                        {/*    {mentorData && mentorData.map((mentor, index) => (*/}
+                        {/*        <option key={index} value={mentor.mentor_id}>*/}
+                        {/*            {mentor.first_name} {mentor.last_name}*/}
+                        {/*        </option>*/}
+                        {/*    ))}*/}
+                        {/*</select>*/}
                         <div>
                             <Button className="rounded" type="submit" onClick={handleSubmit}>Save</Button>
                         </div>
